@@ -1,6 +1,6 @@
 module Beer
 
-beer : (n : Nat) -> IO ()
+beer : Nat -> IO ()
 beer Z = return ()
 beer (S k) = do let a = " bottles of beer on the wall, "
                 let b = " bottles of beer. Take one down, pass it around, "
