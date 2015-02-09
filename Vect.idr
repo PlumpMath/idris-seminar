@@ -21,6 +21,18 @@ zip : Vect n a -> Vect n b -> Vect n (a, b)
 zip Nil Nil = Nil
 zip (x :: xs) (y :: ys) = (x, y) :: (zip xs ys)
 
+rotations : Vect n a -> Vect n (Vect n a)
+rotations {n} v = rotates n v where
+  rotates : (m : Nat) -> Vect n a -> Vect m (Vect n a)
+  rotates Z v = Nil
+  rotates (S k) v = v :: (rotates k (rotate v)) where
+    rotate : {n : Nat} -> Vect n a -> Vect n a
+    rotate Nil = Nil
+    rotate (x :: xs) = push x xs where
+      push : {n : Nat} -> a -> Vect n a -> Vect (S n) a
+      push x Nil = x :: Nil
+      push x (y :: ys) = y :: push x ys
+
 instance Functor (Vect n) where
   map f Nil = Nil
   map f (x :: xs) = (f x) :: (map f xs)
@@ -43,15 +55,4 @@ instance Foldable (Vect n) where
   foldl f a Nil = a
   foldl f a (x :: xs) = foldl f (f a x) xs
 
-rotations : Vect n a -> Vect n (Vect n a)
-rotations {n} v = rotates n v where
-  rotates : (m : Nat) -> Vect n a -> Vect m (Vect n a)
-  rotates Z v = Nil
-  rotates (S k) v = v :: (rotates k (rotate v)) where
-    rotate : {n : Nat} -> Vect n a -> Vect n a
-    rotate Nil = Nil
-    rotate (x :: xs) = push x xs where
-      push : {n : Nat} -> a -> Vect n a -> Vect (S n) a
-      push x Nil = x :: Nil
-      push x (y :: ys) = y :: push x ys
 
