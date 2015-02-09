@@ -1,5 +1,6 @@
 module Vect
 
+
 %default total
 
 data Vect : Nat -> Type -> Type where
@@ -15,6 +16,10 @@ tail (x :: xs) = xs
 repeat : (n : Nat) -> a -> Vect n a
 repeat Z x = Nil
 repeat (S k) x = x :: repeat k x
+
+zip : Vect n a -> Vect n b -> Vect n (a, b)
+zip Nil Nil = Nil
+zip (x :: xs) (y :: ys) = (x, y) :: (zip xs ys)
 
 instance Functor (Vect n) where
   map f Nil = Nil
@@ -37,4 +42,16 @@ instance Foldable (Vect n) where
   foldr f a (x :: xs) = f x (foldr f a xs)
   foldl f a Nil = a
   foldl f a (x :: xs) = foldl f (f a x) xs
+
+rotations : Vect n a -> Vect n (Vect n a)
+rotations {n} v = rotates n v where
+  rotates : (m : Nat) -> Vect n a -> Vect m (Vect n a)
+  rotates Z v = Nil
+  rotates (S k) v = v :: (rotates k (rotate v)) where
+    rotate : {n : Nat} -> Vect n a -> Vect n a
+    rotate Nil = Nil
+    rotate (x :: xs) = push x xs where
+      push : {n : Nat} -> a -> Vect n a -> Vect (S n) a
+      push x Nil = x :: Nil
+      push x (y :: ys) = y :: push x ys
 
