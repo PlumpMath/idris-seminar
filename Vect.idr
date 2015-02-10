@@ -54,5 +54,18 @@ instance Foldable (Vect n) where
   foldr f a (x :: xs) = f x (foldr f a xs)
   foldl f a Nil = a
   foldl f a (x :: xs) = foldl f (f a x) xs
+  
+FoldlN : Vect (S n) Type -> Type -> Type
+FoldlN v b = N (M v b) -> b -> N v -> b where
+  M : Vect n Type -> Type -> Vect n Type
+  M v b = map f v where
+    f : Type -> Type
+    f a = (a -> b -> b)
+  N : Vect n Type -> Type
+  N Nil = Type
+  N (x :: xs) = Type -> N xs
+
+class FoldableN (v : Vect (S n) Type) where
+  foldlN : FoldlN v b
 
 
