@@ -1,6 +1,5 @@
 module Vect
 
-
 %default total
 
 data Vect : Nat -> Type -> Type where
@@ -21,6 +20,14 @@ zip : Vect n a -> Vect n b -> Vect n (a, b)
 zip Nil Nil = Nil
 zip (x :: xs) (y :: ys) = (x, y) :: (zip xs ys)
 
+push : a -> Vect n a -> Vect (S n) a
+push x Nil = x :: Nil
+push x (y :: ys) = y :: push x ys
+
+(++) : Vect n a -> Vect m a -> Vect (n + m) a
+(++) Nil ys = ys
+(++) (x :: xs) ys = x :: xs ++ ys
+
 rotations : Vect n a -> Vect n (Vect n a)
 rotations {n} v = rotates n v where
   rotates : (m : Nat) -> Vect n a -> Vect m (Vect n a)
@@ -28,10 +35,7 @@ rotations {n} v = rotates n v where
   rotates (S k) v = v :: (rotates k (rotate v)) where
     rotate : {n : Nat} -> Vect n a -> Vect n a
     rotate Nil = Nil
-    rotate (x :: xs) = push x xs where
-      push : {n : Nat} -> a -> Vect n a -> Vect (S n) a
-      push x Nil = x :: Nil
-      push x (y :: ys) = y :: push x ys
+    rotate (x :: xs) = push x xs
 
 instance Functor (Vect n) where
   map f Nil = Nil
@@ -54,18 +58,55 @@ instance Foldable (Vect n) where
   foldr f a (x :: xs) = f x (foldr f a xs)
   foldl f a Nil = a
   foldl f a (x :: xs) = foldl f (f a x) xs
-  
-FoldlN : Vect (S n) Type -> Type -> Type
-FoldlN v b = N (M v b) -> b -> N v -> b where
-  M : Vect n Type -> Type -> Vect n Type
-  M v b = map f v where
+
+FoldlN : Vect n Type -> Type -> Type
+FoldlN xs b = TypeFold ((fs xs b) ++ [b] ++ [(TypeFold xs Type)]) b where
+  fs : Vect n Type -> Type -> Vect n Type
+  fs {n} xs b = (repeat n f) <$> xs where
     f : Type -> Type
     f a = (a -> b -> b)
-  N : Vect n Type -> Type
-  N Nil = Type
-  N (x :: xs) = Type -> N xs
+  TypeFold : Vect n Type -> Type -> Type
+  TypeFold Nil b = b
+  TypeFold (x :: xs) b = x -> (TypeFold xs b)
 
-class FoldableN (v : Vect (S n) Type) where
-  foldlN : FoldlN v b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
