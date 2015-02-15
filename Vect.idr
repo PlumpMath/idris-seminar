@@ -24,6 +24,10 @@ push : a -> Vect n a -> Vect (S n) a
 push x Nil = x :: Nil
 push x (y :: ys) = y :: push x ys
 
+range : (n : Nat) -> Vect n Nat
+range Z = Nil
+range (S k) = push (S k) (range k)
+
 (++) : Vect n a -> Vect m a -> Vect (n + m) a
 (++) Nil ys = ys
 (++) (x :: xs) ys = x :: xs ++ ys
@@ -58,4 +62,10 @@ instance Foldable (Vect n) where
   foldr f a (x :: xs) = f x (foldr f a xs)
   foldl f a Nil = a
   foldl f a (x :: xs) = foldl f (f a x) xs
+
+insertions : a -> Vect n a -> Vect (S n) (Vect (S n) a)
+insertions x Nil = (x :: Nil) :: Nil
+insertions x (y :: ys) = (x :: (y :: ys)) :: (map (insert y) (insertions x ys)) where
+  insert : a -> Vect n a -> Vect (S n) a
+  insert x xs = x :: xs
 
