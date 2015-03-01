@@ -68,4 +68,3 @@ insertions x Nil = (x :: Nil) :: Nil
 insertions x (y :: ys) = (x :: (y :: ys)) :: (map (insert y) (insertions x ys)) where
   insert : a -> Vect n a -> Vect (S n) a
   insert x xs = x :: xs
-
