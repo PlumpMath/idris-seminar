@@ -1,0 +1,12 @@
+\begin{frame}[fragile]
+\frametitle{Value-Dependent Data Types}
+
+\begin{block}{Standard Example: (Vect n)}
+\begin{lstlisting}
+data Vect : Nat -> Type -> Type where
+  Nil  : Vect Z a
+  (::) : a -> Vect n a -> Vect (S n) a
+\end{lstlisting}
+\end{block}
+
+\end{frame}
