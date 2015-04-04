@@ -1,4 +1,5 @@
-git clone git://github.com/idris-lang/Idris-dev
+o=git://github.com/idris-lang/Idris-dev
+git clone $o
 cd Idris-dev
 cabal sandbox init
 cabal update
