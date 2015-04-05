@@ -1,0 +1,28 @@
+Now, let's look at a motivational example of dependently typed functional programming in Idris:
+we will create a value-dependent type for vectors, i.e. lists whose length is expressed in the type,
+and show how expressing length in the type can help us ensure the correctness of our software. Typically, in
+a functional programming language without value-dependent types, we'd define a recursive data type for lists whose
+length we do not express in its type:
+\begin{lstlisting}
+data List : Type -> Type where
+  Nil : List a
+  (::) : a -> List a -> List a
+\end{lstlisting}
+It is possible in this case, for instance, to take the head of an empty list; this would be incorrect,
+since an empty list does not have a head. However, if we express the length our list in its type, we increase our confidence
+that our software is correct before running it: in this case, we can make sure our head function only accepts non-empty lists as arguments.
+
+  Let's define our value-dependent data type for lists whose length are expressed in the type, conventially called vectors:
+\begin{lstlisting}
+data Vect : Nat -> Type -> Type where
+  Nil : Vect Z a
+  (::) : a -> Vect n a -> Vect (S n) a
+\end{lstlisting}
+You might have also seen the definition for Peano representation of the natural numbers before, useful for doing type arithmetic:
+\begin{lstlisting}
+data Nat = Z | S Nat
+\end{lstlisting}
+In the Peano representation of the natural numbers, a natural number
+is either zero or the successor of another natural number, e.g. one is the the successor of zero,
+two is the successor of one and so on and so forth. This representation of the natural numbers lets us, in this case,
+express the length of lists in its type, and express the resultant lengths of lists when we add or remove items from them. Hence we can be sure that certain operations that we're performing on vectors - our value-dependent data type - are correct before our software runs.
