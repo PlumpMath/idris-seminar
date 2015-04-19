@@ -14,6 +14,7 @@ that our software is correct before running it: in this case, we can make sure o
 
   Let's define our value-dependent data type for lists whose length are expressed in the type, conventially called vectors:
 \begin{lstlisting}
+
 data Vect : Nat -> Type -> Type where
   Nil : Vect Z a
   (::) : a -> Vect n a -> Vect (S n) a

@@ -1,0 +1,36 @@
+Let's move on and start talking about more interesting examples of
+dependently typed programming in Idris, now that we've installed it.
+We've seen that in a dependently typed programming language like Idris,
+we can define a value-dependent data type like vectors, which unlike lists
+allow us to be sure that we do not, for instance, mistakenly take the
+head of empty list.
+
+Now, let's look at another example of dependently typed functional programming
+in Idris. We can define an operator that concatenates two vectors and certify
+that the length of the resultant vector is the sum of the length of the
+first vector plus the length of the vector:
+
+\begin{lstlisting}
+(<+>) : Vect n a -> Vect m a -> Vect (n + m) a
+(<+>) Nil ys = ys
+(<+>) (x :: xs) ys = x :: xs ++ ys
+\end{lstlisting}
+
+However, it is not enough to just certify, in the type signature of our concatenation operator,
+that the length of our resultant vector is correct in order to ensure that our operator
+for concatenating two vectors is correct. We want to be sure that we do not for instance,
+produce a vector whose with the contents of the second vector prepended to the contents of
+the first vector, rather than a vector with the contents of the second vector appended to the
+contents of the first, when using our operator for concatenating two vectors together.
+
+We can further increase our confidence that our concatenation operator is implemented
+correctly by proving that it is associative: i.e. an incorrect implementation, such as
+one that prepends the second vector to the first vector rather than appending it, would
+not have this property. Though, even still our concatenation could be incorrect: for
+example we could just implement a concatenation operator that takes two vectors and
+produces a vector with an element repeated as many times as the sum of the lengths of the
+two vectors. If we also prove that a vector concatenated with the empty vector is equal
+to the first vector and the empty vector concatenated with a vector is equal to the second
+vector, we can then be sure that our concatenation operator is implemented correctly.
+
+
