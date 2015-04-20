@@ -24,7 +24,7 @@ the first vector, rather than a vector with the contents of the second vector ap
 contents of the first, when using our operator for concatenating two vectors together.
 
 We can further increase our confidence that our concatenation operator is implemented
-correctly by proving that it is associative: i.e. an incorrect implementation, such as
+correctly by proving that it has the associative property: i.e. an incorrect implementation, such as
 one that prepends the second vector to the first vector rather than appending it, would
 not have this property. Though, even still our concatenation could be incorrect: for
 example we could just implement a concatenation operator that takes two vectors and
@@ -33,4 +33,7 @@ two vectors. If we also prove that a vector concatenated with the empty vector i
 to the first vector and the empty vector concatenated with a vector is equal to the second
 vector, we can then be sure that our concatenation operator is implemented correctly.
 
-
+It turns out that there are many other cases where we might want to define an associative
+binary operator for data types, which takes two instances of some data type and produces another
+instance of said data type. Data types where we've defined operators like this are called
+semigroups: i.e. they are members of the semigroup type class.
