@@ -1,0 +1,30 @@
+\begin{frame}[fragile]
+\frametitle{Another solution with Dependent Types}
+
+\begin{lstlisting}[frame=single]
+v : Vect n a -> (v ++ Nil) = v
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+v : Vect n a -> (Nil ++ v) = v
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+v : Vect n a ->
+w : Vect n a ->
+x : Vect n a ->
+(v ++ w) ++ x = v ++ w ++ x
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+v : Vect n a ->
+w : Vect n a ->
+x : Vect n a ->
+v ++ (w ++ x) = v ++ w ++ x
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+Proofs of these propositions.
+\end{lstlisting}
+
+\end{frame}

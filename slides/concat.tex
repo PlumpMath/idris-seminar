@@ -1,0 +1,23 @@
+\begin{frame}[fragile]
+\frametitle{Another Problem}
+
+\begin{lstlisting}[frame=single]
+(++) : Vect n a ->
+       Vect m a ->
+       Vect (n + m) a
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+A silly implementation that type checks.
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+> [1] ++ [2, 3]
+[2, 3, 1] : Vect 3 Nat
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+Oops!
+\end{lstlisting}
+
+\end{frame}

@@ -36,4 +36,8 @@ vector, we can then be sure that our concatenation operator is implemented corre
 It turns out that there are many other cases where we might want to define an associative
 binary operator for data types, which takes two instances of some data type and produces another
 instance of said data type. Data types where we've defined operators like this are called
-semigroups: i.e. they are members of the semigroup type class.
+semigroups: i.e. they are members of the semigroup type class. Also, a data type
+is called a monoid if it is a semigroup and also has a neutral element: i.e. if
+both its semigroup operator applied to one of its instance and the neutral element is equal
+to the same instance and if its semigroup operator applied to the neutral element and one of
+its instances is also equal to the same instance.

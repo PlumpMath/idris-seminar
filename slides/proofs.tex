@@ -1,0 +1,24 @@
+\begin{frame}[fragile]
+\frametitle{Simple Proof Examples}
+
+\begin{lstlisting}[frame=single]
+fiveIsFive : 5 = 5
+fiveIsFive = Refl
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+-- lemma
+cong : (a = b) -> f a = f b
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+-- lemma
+plusZeroRightNeutral :
+  (left : Nat) -> left + Z = left
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+twicedNeutral :
+  (n : Nat) -> mult 2 n = plus n n
+twicedNeutral n =
+  cong (plusZeroRightNeutral n)
+\end{lstlisting}
+
+\end{frame}

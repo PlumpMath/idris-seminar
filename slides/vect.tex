@@ -1,0 +1,24 @@
+\begin{frame}[fragile]
+\frametitle{A Solution with Dependent Types}
+
+\begin{lstlisting}[frame=single]
+data Vect : Nat -> Type -> Type where
+  Nil : Vect Z a
+  (::) : a -> Vect n a -> Vect (S n) a
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+data Nat = Z | S Nat
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+head : Vect (S n) a -> a
+head (x :: xs) = x
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+> head Nil
+Safe: won't type check.
+\end{lstlisting}
+
+\end{frame}

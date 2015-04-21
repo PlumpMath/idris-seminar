@@ -1,0 +1,21 @@
+\begin{frame}[fragile]
+
+\begin{lstlisting}[frame=single]
+tail : Vect (S n) a -> Vect n a
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+push : a -> Vect n a -> Vect (S n) a
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+rotations : Vect n a -> Vect n (Vect n a)
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+insertions : a -> Vect n a
+  -> Vect (S n) (Vect (S n) a)
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+permutations : Vect n a
+  -> Vect (fact n) (Vect n a)
+\end{lstlisting}
+
+\end{frame}

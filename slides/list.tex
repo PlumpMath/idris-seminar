@@ -1,0 +1,20 @@
+\begin{frame}[fragile]
+\frametitle{A Problem}
+
+\begin{lstlisting}[frame=single]
+data List : Type -> Type where
+  Nil : List a
+  (::) : a -> List a -> List a
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+head : List a -> a
+head (x :: xs) = x
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+> head Nil
+Error!
+\end{lstlisting}
+
+\end{frame}
